@@ -1,11 +1,19 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel
+from PyQt5.QtGui import QIcon, QPixmap
 import sys
+
+
 
 xpos = 200
 ypos = 200
-width = 300
-height = 300
+width = 500
+height = 500
+
+# def getScreendim():
+#     app = QtGui.QApplication([])
+#     screen_resolution = app.desktop().screenGeometry()
+#     width, height = screen_resolution.width(), screen_resolution.height()
 
 class Song:
     artist = ''
@@ -37,6 +45,8 @@ class MyWindow(QMainWindow):
         self.setGeometry(xpos, ypos, width, height)
         self.setWindowTitle("Spotify 4 Qts")
         self.initUI()
+
+        
     def initUI(self):
         # Dislike Button
         self.dislike_button = QtWidgets.QPushButton(self)
@@ -52,13 +62,21 @@ class MyWindow(QMainWindow):
 
         # Cover art Placeholder?
         
-        # self.dog = QtWidgets.QPushButton(self.centralwidget)
-        # self.dog.setGeometry(QtCore.QRect(410, 510, 391, 41))
-        # self.dog.setObjectName("dog")
+        self.coverart = QLabel(self)
+        pixmap = QPixmap('dog.jpg') # Image link
+        self.coverart.setPixmap(pixmap)
+        # self.resize(100,100)
+        # self.resize(pixmap.width(),pixmap.height())
+        self.coverart.setScaledContents(True)
+        self.coverart.setGeometry(QtCore.QRect(0, 0, 50, 50))
+        self.coverart.move(100, height/2-10)
+
 
 def window():
     # knows which OS to display
     app = QApplication(sys.argv)
+
+
     win = MyWindow()
     # x,y to show on screen, width&height 
     win.setGeometry(xpos, ypos, width, height)
